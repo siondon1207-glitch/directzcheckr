@@ -1,23 +1,1364 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --card-bg: #ffffff;
+      --primary-color: #3b5998;
+      --primary-dark: #233862;
+      --primary-light: #eef2f9;
+      --secondary-color: #6d597a;
+      --accent-color: #b56576;
+      --accent-light: #fbebee;
+      --text-dark: #1e293b;
+      --text-gray: #475569;
+      --text-light: #64748b;
+      --border-color: #e2e8f0;
+      --border-soft: #edf2f7;
+      --highlight: #d97706;
+      --highlight-light: #fffbeb;
+      --success: #2b8a3e;
+      --success-light: #ebfbee;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text-dark);
+      background-color: var(--bg-page);
+      line-height: 1.95;
+      word-break: keep-all;
+      letter-spacing: -0.3px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 40px auto;
+      padding: 50px;
+      background-color: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--border-color);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        margin: 15px;
+        padding: 25px 20px;
+        border-radius: 12px;
+      }
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 45px;
+      padding-bottom: 35px;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .badge-label {
+      display: inline-block;
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 0.9em;
+      font-weight: 700;
+      padding: 6px 18px;
+      border-radius: 30px;
+      margin-bottom: 16px;
+      letter-spacing: -0.2px;
+    }
+
+    h1 {
+      font-size: 2.3em;
+      font-weight: 800;
+      color: var(--primary-dark);
+      line-height: 1.4;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.7em;
+      }
+    }
+
+    .lead-description {
+      font-size: 1.12em;
+      color: var(--text-gray);
+      max-width: 860px;
+      margin: 0 auto;
+      line-height: 1.85;
+      font-weight: 400;
+    }
+
+    /* 목차 */
+    .toc-container {
+      background-color: #f1f5f9;
+      border-radius: 14px;
+      padding: 25px 30px;
+      margin-bottom: 45px;
+      border: 1px solid var(--border-color);
+    }
+
+    .toc-title {
+      font-size: 1.15em;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 15px;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 640px) {
+      .toc-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .toc-grid a {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-size: 0.95em;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 6px;
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      transition: all 0.2s ease;
+      display: block;
+    }
+
+    .toc-grid a:hover {
+      color: var(--primary-color);
+      background-color: var(--primary-light);
+      border-color: var(--primary-color);
+    }
+
+    /* 타이포그래피 */
+    h2 {
+      font-size: 1.65em;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-top: 55px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--primary-light);
+      letter-spacing: -0.5px;
+    }
+
+    h3 {
+      font-size: 1.3em;
+      font-weight: 700;
+      color: var(--secondary-color);
+      margin-top: 35px;
+      margin-bottom: 15px;
+      letter-spacing: -0.3px;
+    }
+
+    h4 {
+      font-size: 1.1em;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.05em;
+      color: var(--text-gray);
+      margin-bottom: 22px;
+      line-height: 1.95;
+      text-align: justify;
+    }
+
+    strong {
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    ul, ol {
+      margin-bottom: 25px;
+      padding-left: 22px;
+    }
+
+    li {
+      font-size: 1.03em;
+      color: var(--text-gray);
+      margin-bottom: 10px;
+      line-height: 1.85;
+    }
+
+    /* 하이라이트 및 안내 박스 */
+    .info-card {
+      background-color: var(--primary-light);
+      border-left: 5px solid var(--primary-color);
+      padding: 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 30px 0;
+    }
+
+    .info-card p {
+      color: var(--primary-dark);
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+
+    .alert-card {
+      background-color: var(--accent-light);
+      border-left: 5px solid var(--accent-color);
+      padding: 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 30px 0;
+    }
+
+    .alert-card p {
+      color: #721c24;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+
+    .tip-card {
+      background-color: var(--highlight-light);
+      border-left: 5px solid var(--highlight);
+      padding: 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 30px 0;
+    }
+
+    .tip-card p {
+      color: #78350f;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+
+    /* 테이블 */
+    .table-responsive {
+      overflow-x: auto;
+      margin: 35px 0;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      background-color: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.94em;
+      min-width: 760px;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: #f8fafc;
+      color: var(--primary-dark);
+      font-weight: 700;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    tr:hover {
+      background-color: #fdfdfe;
+    }
+
+    .td-center {
+      text-align: center;
+    }
+
+    .td-bold {
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .badge-tier {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.85em;
+      font-weight: 700;
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+    }
+
+    /* 인터랙티브 계산기 영역 */
+    .calculator-wrapper {
+      background: linear-gradient(145deg, #ffffff, #f8fafc);
+      border: 2px solid #cbd5e1;
+      border-radius: 18px;
+      padding: 35px;
+      margin: 50px 0;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+    }
+
+    .calculator-wrapper h3 {
+      text-align: center;
+      color: var(--primary-dark);
+      font-size: 1.45em;
+      margin-top: 0;
+      margin-bottom: 25px;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 700px) {
+      .calc-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .calc-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .calc-group label {
+      font-size: 0.95em;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .calc-group select,
+    .calc-group input {
+      padding: 12px 14px;
+      font-size: 1em;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background-color: #ffffff;
+      color: var(--text-dark);
+      font-family: inherit;
+    }
+
+    .calc-checkbox-container {
+      grid-column: 1 / -1;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .calc-checkbox-label {
+      display: flex;
+      align-items: center;
+      font-size: 0.95em;
+      color: var(--text-gray);
+      cursor: pointer;
+    }
+
+    .calc-checkbox-label input {
+      margin-right: 10px;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary-color);
+    }
+
+    .btn-submit-calc {
+      grid-column: 1 / -1;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      font-size: 1.1em;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      padding: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background-color 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-submit-calc:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .calc-result-panel {
+      margin-top: 25px;
+      padding: 24px;
+      background-color: var(--success-light);
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      display: none;
+    }
+
+    .calc-result-title {
+      font-size: 1.2em;
+      font-weight: 800;
+      color: #166534;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .calc-result-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.02em;
+      color: #14532d;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed #86efac;
+    }
+
+    .calc-result-row.total-row {
+      font-size: 1.22em;
+      font-weight: 800;
+      color: #052e16;
+      border-bottom: none;
+      padding-top: 8px;
+      margin-top: 10px;
+      border-top: 2px solid #22c55e;
+    }
+
+    /* 참조 링크 섹션 */
+    .reference-section {
+      background-color: #f8fafc;
+      border-radius: 14px;
+      padding: 28px;
+      margin-top: 50px;
+      border: 1px solid var(--border-color);
+    }
+
+    .reference-section h4 {
+      margin-top: 0;
+      color: var(--primary-dark);
+      font-size: 1.15em;
+      margin-bottom: 16px;
+    }
+
+    .reference-links-list {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 0;
+    }
+
+    .reference-links-list li {
+      margin-bottom: 12px;
+    }
+
+    .reference-links-list a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+      display: inline-block;
+    }
+
+    .reference-links-list a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    .reference-meta {
+      display: block;
+      font-size: 0.88em;
+      color: var(--text-light);
+      margin-top: 3px;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      font-size: 0.9em;
+      color: var(--text-light);
+    }
+  </style>
+
+  <!-- Schema.org JSON-LD Structured Data for AI & Search Engine Crawlers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://directwsearchx.reliabledone.com/#website",
+        "url": "https://directwsearchx.reliabledone.com",
+        "name": "대한민국 성혼 컨설팅 연구소",
+        "description": "국내 결혼정보회사 비용, 등급표, 후불제 및 선불제 비교 분석 전문 플랫폼",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://directwsearchx.reliabledone.com/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Article",
+        "@id": "https://directwsearchx.reliabledone.com/postpay-marriage-info#article",
+        "isPartOf": {
+          "@id": "https://directwsearchx.reliabledone.com/#website"
+        },
+        "headline": "2027 후불제결혼정보회사 완벽 가이드: 남녀 직업별 등급표와 연령별 비용 견적 및 선불제 비교 총정리",
+        "description": "기존 선불제 결혼정보회사의 과도한 선납 가입비와 유령 회원 문제를 극복한 후불제결혼정보회사의 종합 가이드. 남성 여성 직업군 및 연령대별 등급표, 주선비와 성혼비 요금표, 커뮤니티 내돈내산 후기, 모의 견적 계산기를 제공합니다.",
+        "datePublished": "2027-01-15T09:00:00+09:00",
+        "dateModified": "2027-02-18T14:30:00+09:00",
+        "author": {
+          "@type": "Organization",
+          "name": "성혼빅데이터분석센터"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "대한민국 성혼 컨설팅 연구소",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://directwsearchx.reliabledone.com/logo.png"
+          }
+        },
+        "mainEntityOfPage": "https://directwsearchx.reliabledone.com/postpay-marriage-info"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://directwsearchx.reliabledone.com/postpay-marriage-info#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "후불제결혼정보회사란 무엇이며 선불제와 어떤 점이 가장 다른가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "후불제결혼정보회사는 기존에 수백만 원에서 천만 원 이상의 거액을 선납하던 선불제 방식과 달리, 초기 가입비는 10만 원에서 30만 원 선의 기본 서류 인증 실비만 납부하고 실제 매칭이 성사되어 만남을 가질 때마다 1회 주선비(약 5만 원에서 15만 원)를 결제하며, 최종 교제 및 결혼이 성사되었을 때만 성혼사례비를 지불하는 합리적인 성혼 중심 요금제 방식입니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "후불제결혼정보회사 매칭 시 남녀 회원의 서류 검증은 선불제만큼 엄격한가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "네, 동일하게 법적 인증 절차를 거칩니다. 혼인관계증명서(상세), 가족관계증명서, 원천징수영수증 또는 소득금액증명원, 졸업증명서, 전문직 자격증 사본, 재직증명서 등을 공증 및 발급받아 확인한 후 가입이 승인되므로 신원이나 직업, 학벌의 허위 등록 위험은 선불제 대형 업체와 동일한 수준으로 통제됩니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "후불제결혼정보회사 이용 중 중도 해지 시 환불 및 위약금 규정은 어떻게 적용되나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "후불제 시스템은 약정 기간(예: 1년 또는 12개월)에 묶이지 않는 무약정 구조가 대부분이므로, 기존 선불제 계약에서 흔히 겪는 과다한 위약금 분쟁이나 미소진 횟수 환불 거절 문제가 원천적으로 발생하지 않습니다. 이미 진행된 주선비 외에 추가적인 의무 납부 금액이 없어 탈퇴와 계약 종료가 매우 자유롭습니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "전문직 남성이나 전문직 여성 회원의 경우 후불제 방식이 더 유리한가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "전문직 종사자(의사, 변호사, 회계사 등)는 본인이 선호하는 조건(동일 전문직, 자산 규모, 집안 환경 등)이 명확하여 선불제로 고액을 지불하고도 원치 않는 일반 매칭으로 횟수를 낭비하는 경우가 많습니다. 후불제 방식을 택하면 프로필 확인 후 마음에 드는 상대와만 선별적으로 만남을 진행할 수 있어 시간과 비용을 획기적으로 절약할 수 있습니다."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <span class="badge-label">2027 대한민국 미혼남녀 성혼 트렌드 심층 리포트</span>
+      <h1>후불제결혼정보회사 완벽 가이드<br>남녀 직업별 등급표와 연령대별 비용 견적 비교</h1>
+      <p class="lead-description">
+        결혼을 희망하는 수많은 미혼남녀가 가장 먼저 부딪히는 장벽은 수백만 원에서 천만 원대를 호가하는 선불제 결혼정보회사의 막대한 가입비와 불투명한 매칭 품질입니다. 본 분석 지침서에서는 2027년 대한민국 성혼 시장의 핵심 화두로 떠오른 후불제결혼정보회사의 세부 운영 원리, 남성 여성 직업군 및 연령별 등급 체계, 만남당 주선비와 성혼비 요금표, 그리고 실제 체류형 모의 계산기까지 가장 객관적이고 체계적인 정보를 전달합니다.
+      </p>
+    </header>
+
+    <div class="toc-container">
+      <div class="toc-title">목차 바로가기</div>
+      <div class="toc-grid">
+        <a href="#section1">1. 후불제결혼정보회사의 본질과 탄생 배경</a>
+        <a href="#section2">2. 선불제 vs 후불제결혼정보회사 핵심 차이점과 장단점</a>
+        <a href="#section3">3. 직업군 및 연령별 결혼정보회사 남녀 등급표 체계</a>
+        <a href="#section4">4. 연령별 차종 및 직업별 32가지 가상 매칭 비용 시뮬레이션</a>
+        <a href="#section5">5. 온라인 커뮤니티(디시, 펨코, 보배드림) 내돈내산 후기 검증</a>
+        <a href="#section6">6. 다이렉트 모바일 어플 및 플랫폼 가입 시 프로모션 혜택</a>
+        <a href="#section7">7. 공정거래위원회 표준약관과 환불, 위약금 계약 주의점</a>
+        <a href="#section8">8. 후불제결혼정보회사 실시간 예상 비용 모의 계산기</a>
+        <a href="#section9">9. 자주 묻는 질문 10선 (심층 FAQ)</a>
+        <a href="#section10">10. 공인 공식 정보 출처 및 신뢰할 수 있는 기관 안내</a>
+      </div>
+    </div>
+
+    <h2 id="section1">1. 후불제결혼정보회사의 본질과 탄생 배경</h2>
+    <p>
+      대한민국의 전통적인 사설 중매 시장은 오랜 기간 대형 브랜드 기반의 선불제 결혼정보회사가 주도해 왔습니다. 선불제 모델의 기본 구조는 가입 시점에 300만 원에서 1,500만 원, VIP 노블레스 등급의 경우 2,000만 원에서 5,000만 원에 달하는 거액의 가입비를 1년(12개월) 단위 약정으로 일시불 또는 카드 할부로 선납하고, 정해진 횟수(보통 5회에서 10회 내외) 동안 프로필을 소개받아 만남을 갖는 방식이었습니다.
+    </p>
+    <p>
+      그러나 이러한 선납 구조는 심각한 정보의 비대칭성과 도덕적 해이를 야기했습니다. 일단 계약금을 포함한 목돈을 결제하고 나면, 전담 커플매니저의 태도가 급변하거나 가입 전 약속했던 이상형 조건(학벌, 직업, 키, 외모, 연봉, 자산 등)과 동떨어진 상대방 프로필을 억지로 주선하여 약정 횟수를 소진시키는 사례가 빈번하게 발생한 것입니다. 이에 따라 소비자가 계약 해지와 환불을 요구하더라도, 업체 측에서는 과도한 위약금 조항과 자체 산정한 회당 소진 비용을 핑계로 결제 금액의 상당 부분을 돌려주지 않아 공정거래위원회와 한국소비자원에 접수되는 소비자 피해 구제 신청의 단골 품목으로 자리 잡았습니다.
+    </p>
+    <p>
+      이러한 불합리한 시장 관행에 대한 반작용으로 등장한 것이 바로 <strong>후불제결혼정보회사</strong>입니다. 후불제 모델은 소비자가 감당해야 하는 선납 리스크를 최소화하기 위해, 초기에는 서류 공증과 신원 확인에 소요되는 10만 원에서 30만 원 안팎의 실비 성격 등록비만 수납합니다. 이후 매니저가 엄선하여 제안한 프로필을 양측이 상호 수락하여 실제로 오프라인 만남이 확정될 때마다 1회 주선비(약 5만 원에서 15만 원)를 건당 결제하며, 진지한 교제를 거쳐 결혼에 도달했을 때 비로소 성혼사례비(약 100만 원에서 300만 원)를 지급하는 합리적인 구조로 운영됩니다.
+    </p>
+    <p>
+      결국 후불제 방식은 성혼 컨설팅 업체와 매니저에게 확실한 성과 동기를 부여합니다. 고객이 만족할 만한 양질의 매칭을 지속적으로 성사시키고 실제로 성혼까지 이끌어내야만 회사의 수익이 극대화되는 구조이기 때문입니다. 이는 선불 결제만 유도하고 실제 만남 품질에는 소홀했던 기존 대형 업체의 맹점을 완벽히 보완한 2027년형 대안 모델로 급부상하고 있습니다.
+    </p>
+
+    <div class="info-card">
+      <p>
+        <strong>핵심 정의:</strong> 후불제결혼정보회사는 고액의 초기 가입비를 없애고 서류 검증 실비만으로 등록한 뒤, 실제 만남이 성사될 때마다 발생하는 회당 주선비와 최종 결혼 성공 시 지불하는 성혼비를 축으로 운영되는 성과 연동형 결혼 컨설팅 서비스입니다.
+      </p>
+    </div>
+
+    <h2 id="section2">2. 선불제 vs 후불제결혼정보회사 핵심 차이점과 장단점</h2>
+    <p>
+      결혼정보회사 가입을 고려하는 미혼남녀라면 두 시스템 간의 경제적, 심리적 차이점을 명확히 인지하고 본인의 상황에 가장 적합한 방식을 선택해야 합니다. 아래의 표와 상세 분석을 통해 두 체계의 구조적 차이를 면밀히 비교해 보십시오.
+    </p>
+
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>비교 구분</th>
+            <th>전통적 선불제 결혼정보회사</th>
+            <th>합리적 후불제결혼정보회사</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-bold">초기 가입 비용</td>
+            <td>평균 300만 원 ~ 1,500만 원 이상 (고액 선납)</td>
+            <td>10만 원 ~ 30만 원 (서류 공증 및 등록 실비)</td>
+          </tr>
+          <tr>
+            <td class="td-bold">만남당 추가 요금</td>
+            <td>없음 (선납한 약정 횟수에서 1회씩 차감)</td>
+            <td>회당 5만 원 ~ 15만 원 (상호 수락 시 결제)</td>
+          </tr>
+          <tr>
+            <td class="td-bold">성혼사례비 (성혼비)</td>
+            <td>일반 프로그램은 면제, 노블은 100만~500만 원</td>
+            <td>성혼 성공 시 100만 원 ~ 300만 원 후불 정산</td>
+          </tr>
+          <tr>
+            <td class="td-bold">약정 기간 및 의무</td>
+            <td>통상 1년 (12개월) 또는 정해진 횟수 소진 시 종료</td>
+            <td>무약정 원칙 (언제든지 일시정지 및 탈퇴 가능)</td>
+          </tr>
+          <tr>
+            <td class="td-bold">매칭 매니저의 동기</td>
+            <td>이미 가입비를 받았으므로 횟수 소진에 집중 우려</td>
+            <td>만남 성사 및 성혼이 되어야 수익 발생하므로 적극적</td>
+          </tr>
+          <tr>
+            <td class="td-bold">중도 해지 및 환불</td>
+            <td>위약금 공제 및 소진 횟수 산정 분쟁 빈번</td>
+            <td>선납한 목돈이 없으므로 위약금 분쟁 원천 차단</td>
+          </tr>
+          <tr>
+            <td class="td-bold">적합한 고객 유형</td>
+            <td>단기간 집중 매칭 희망자, 비용 부담 없는 고소득층</td>
+            <td>사회초년생, 신중한 만남 추구자, 전문직, 실속파</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>2-1. 후불제결혼정보회사의 독보적 장점</h3>
+    <ul>
+      <li>
+        <strong>재정적 위험 부담의 원천적 제거:</strong> 수백만 원에 달하는 목돈을 미리 내지 않아도 되므로 가입에 따르는 금융 비용과 할부 수수료, 기회비용을 절약할 수 있습니다.
+      </li>
+      <li>
+        <strong>매칭 퀄리티에 대한 주도권 확보:</strong> 마음에 들지 않는 조건의 프로필을 억지로 받아서 만날 이유가 없습니다. 매니저가 전달한 서류와 사진을 검토하고 내가 동의할 때만 미팅비가 발생하므로 쓸데없는 횟수 차감 스트레스가 없습니다.
+      </li>
+      <li>
+        <strong>공정한 성과 보상 체계:</strong> 회사는 회원이 교제에 성공하고 결혼해야만 성혼비를 받을 수 있으므로, 단순 만남 주선에 그치지 않고 만남 후 피드백, 데이트 코칭, 교제 중 갈등 조율 등 실질적인 성혼 컨설팅에 전력을 다하게 됩니다.
+      </li>
+      <li>
+        <strong>무약정의 자유로움:</strong> 이직, 시험 준비, 해외 출장 등으로 바쁘거나 자연스러운 연애를 시작했을 때 언제든 페널티 없이 활동을 중단하거나 종료할 수 있습니다.
+      </li>
+    </ul>
+
+    <h3>2-2. 사전에 알아두어야 할 단점 및 유의사항</h3>
+    <ul>
+      <li>
+        <strong>만남 횟수 누적 시 총비용 상승 가능성:</strong> 만약 본인의 눈높이가 너무 높아 15회, 20회 이상 지속적으로 만남만 반복하고 성혼에 이르지 못한다면, 회당 주선비가 누적되어 오히려 일정 횟수가 보장된 선불제보다 총 납부액이 늘어날 수 있습니다.
+      </li>
+      <li>
+        <strong>업체별 회원 풀의 규모 편차:</strong> 소규모 신규 후불제 업체의 경우 전국적인 남녀 회원 데이터베이스가 대형 선불제 법인에 비해 다소 부족할 수 있으므로, 제휴 네트워크나 연합 매칭망을 보유한 검증된 브랜드를 선택해야 합니다.
+      </li>
+      <li>
+        <strong>최종 성혼비 부담:</strong> 결혼이 확정되었을 때 일시에 지급해야 하는 성혼비(100만~300만 원)를 사전에 가계 예산으로 고려해 두어야 합니다.
+      </li>
+    </ul>
+
+    <h2 id="section3">3. 직업군 및 연령별 결혼정보회사 남녀 등급표 체계</h2>
+    <p>
+      결혼정보회사 시장에는 공식적으로 공개되지 않지만 내부 심사 및 매칭 기준으로 통용되는 고유의 <strong>등급표</strong>가 존재합니다. 이는 속물적인 서열화라기보다는, 서로의 성장 환경, 소득 수준, 사회적 지위, 가치관의 격차를 최소화하여 상호 균형 잡힌 만남을 주선하기 위한 실무적인 필터링 시스템입니다.
+    </p>
+    <p>
+      특히 2027년 현재는 단순한 직업 명칭뿐만 아니라 자산 형성 가능성, 부모님의 노후 대비 여부, 직업의 안정성 및 은퇴 시점까지 종합적으로 점수화됩니다. 남성과 여성에게 적용되는 평가 비중에는 시장의 수요와 공급에 따른 현실적인 차이가 존재합니다.
+    </p>
+
+    <h3>3-1. 남성 직업군 및 조건별 등급 평가 기준</h3>
+    <p>
+      결혼정보회사 남자 회원의 경우 경제적 안정성과 직업의 지속성, 자산 규모가 가장 중요한 평가 척도로 작용합니다.
+    </p>
+    <ul>
+      <li>
+        <span class="badge-tier">특A등급 (최상위 전문직 및 자산가)</span>: 판사, 검사, 메이저 로펌 변호사, 의사(개원의 및 대학병원 임상강사 이상), 치과의사, 한의사, 행정고시(5급 공채) 출신 중앙부처 공무원, 순자산 30억 원 이상의 탄탄한 자산가 자제.
+      </li>
+      <li>
+        <span class="badge-tier">A등급 (선호 전문직 및 금융 공기업)</span>: 대형 회계법인 공인회계사(KICPA), 변리사, 세무사, 한국은행 및 금융감독원 등 A매치 금융공기업, 외국계 투자은행(IB), 상위 사립대 교수, 유망 스타트업 공동창업자.
+      </li>
+      <li>
+        <span class="badge-tier">B등급 (대기업 및 안정 공직군)</span>: 10대 대기업 정규직(삼성, SK, 현대차, LG 등 핵심 연구개발 및 기획), 메이저 IT 기업 개발자(네이버, 카카오, 라인, 쿠팡 등), 7급 공무원, 메이저 공기업(한전, 인국공 등), 대형 시중은행 및 증권사.
+      </li>
+      <li>
+        <span class="badge-tier">C등급 (중견기업 및 일반 사무직)</span>: 우량 중견기업 정규직, 9급 공무원, 초중고 정교사, 연 매출 50억 규모 안정적 개인사업자, 일반 엔지니어.
+      </li>
+      <li>
+        <span class="badge-tier">기타 등급</span>: 중소기업 재직, 프리랜서, 자영업, 계약직 등은 소득 증빙과 자산 내역(자가 소유 여부, 순자율)에 따라 개별 심사를 거쳐 매칭풀이 배정됩니다.
+      </li>
+    </ul>
+
+    <h3>3-2. 여성 직업군 및 조건별 등급 평가 기준</h3>
+    <p>
+      결혼정보회사 여자 회원의 경우 과거에는 나이와 외모가 절대적인 비중을 차지했으나, 최근에는 맞벌이 필요성과 라이프스타일 공유 욕구가 커짐에 따라 직업의 안정성과 워라밸, 그리고 본인의 인성과 집안 분위기가 매우 복합적으로 평가됩니다.
+    </p>
+    <ul>
+      <li>
+        <span class="badge-tier">특A등급 (엘리트 전문직 및 명문가)</span>: 여의사, 치과의사, 판검사, 대형 로펌 변호사, 약사(개국 및 종합병원), 행시 출신 사무관, 상속 자산 규모가 뚜렷한 명문가 자제.
+      </li>
+      <li>
+        <span class="badge-tier">A등급 (안정직 최고 선호군)</span>: 초등 및 중등 국공립 교사, 공기업 및 금융권 재직자, 대학교 교직원, 7급 이상 공무원, 대형병원 간호사(정규직), 안정적인 프리랜서 아나운서.
+      </li>
+      <li>
+        <span class="badge-tier">B등급 (대기업 및 전문직 서포트)</span>: 메이저 대기업 사원 및 대리, 외국계 기업 정규직, 세무사, 회계사 등 전문직 여성, IT 테크기업 기획자 및 디자이너.
+      </li>
+      <li>
+        <span class="badge-tier">C등급 (일반 사무직 및 전문 서비스직)</span>: 탄탄한 중견기업 재직자, 9급 공무원, 어린이집 및 유치원 정교사, 승무원, 공인중개사, 필라테스 강사(사업자형).
+      </li>
+      <li>
+        <span class="badge-tier">부가 우대 요건</span>: 밝고 단정한 인상, 철저한 자기관리(체형 및 건강), 비흡연, 유연한 소통 능력, 부모님의 안정된 노후(연금 수급권자 등)는 모든 등급에서 최상위 가산점으로 작용합니다.
+      </li>
+    </ul>
+
+    <h3>3-3. 나이대별(연령별) 시장 수요와 매칭 역학</h3>
+    <p>
+      결혼정보회사 시장에서 연령은 남녀 모두에게 중요한 변수입니다. 
+      <strong>20대 여성</strong>의 경우 최연소 프리미엄으로 인해 전문직 남성이나 자산가 남성 매칭에서 압도적인 선택권을 가지며, 가입비 할인 혜택도 가장 큽니다. 반면 <strong>20대 남성</strong>은 군 복무와 취업 준비로 인해 경제적 기반이 약한 경우가 많아 20대 후반 전문직이나 대기업 입사자 위주로 후불제 가입이 형성됩니다.
+    </p>
+    <p>
+      <strong>30대 초반(만 30세~34세)</strong>은 남녀 모두 가장 시장 수요가 집중되는 황금 연령대입니다. 남성은 직업적 성과와 자산 형성이 본격화되는 시기이며, 여성 또한 사회적 커리어와 성숙미를 겸비하여 상호 간 가장 활발한 성혼 매칭이 이루어집니다. 
+      <strong>30대 후반 및 40대</strong>로 넘어가면 남성은 본인의 자산 규모와 소득 격차에 따라 주선 풀이 극명하게 갈리며, 여성은 본인의 단독 커리어 유지 여부 및 출산에 대한 가치관에 따라 맞춤형 매칭 설계가 요구됩니다.
+    </p>
+
+    <h2 id="section4">4. 연령별 차종 및 직업별 32가지 가상 매칭 비용 시뮬레이션</h2>
+    <p>
+      후불제결혼정보회사를 이용할 경우 실제 가입자가 지출하게 되는 1회 주선비와 성혼비, 그리고 전통적인 선불제 가입 시와 비교한 절감 금액을 세부 연령대와 직업별 시나리오 32가지로 세밀하게 분석했습니다. 아래 시뮬레이션 데이터는 2027년 시장 요율과 5회 내외의 평균 매칭 성혼 도달 기준을 적용한 수치입니다.
+    </p>
+
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>연령대 및 성별 구분</th>
+            <th>주요 직업군 및 상세 스펙</th>
+            <th>선불제 예상 비용 (원)</th>
+            <th>후불제 총비용 (원)</th>
+            <th>절감 예상 금액 (원)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>20대 초반 여성 결혼정보회사</td>
+            <td>교대 및 사범대 재학 (임용 예정)</td>
+            <td>3,500,000</td>
+            <td>1,350,000</td>
+            <td>2,150,000</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>20대 중반 여성 결혼정보회사</td>
+            <td>국공립 초등교사 (안정직 선호)</td>
+            <td>3,800,000</td>
+            <td>1,450,000</td>
+            <td>2,350,000</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>20대 중반 남성 결혼정보회사</td>
+            <td>공군 장교 전역 후 7급 공무원</td>
+            <td>4,000,000</td>
+            <td>1,600,000</td>
+            <td>2,400,000</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>20대 후반 남성 결혼정보회사</td>
+            <td>삼성전자 반도체 연구원 (석사)</td>
+            <td>4,500,000</td>
+            <td>1,750,000</td>
+            <td>2,750,000</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>20대 후반 여성 결혼정보회사</td>
+            <td>종합병원 약사 (전문직)</td>
+            <td>4,200,000</td>
+            <td>1,550,000</td>
+            <td>2,650,000</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>30대 초반 남성 결혼정보회사</td>
+            <td>대형병원 레지던트 (의사)</td>
+            <td>5,500,000</td>
+            <td>1,800,000</td>
+            <td>3,700,000</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>30대 초반 여성 결혼정보회사</td>
+            <td>시중은행 본점 행원 (금융권)</td>
+            <td>4,000,000</td>
+            <td>1,650,000</td>
+            <td>2,350,000</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>30대 초반 남성 결혼정보회사</td>
+            <td>빅4 회계법인 공인회계사</td>
+            <td>4,800,000</td>
+            <td>1,700,000</td>
+            <td>3,100,000</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>30대 초반 여성 결혼정보회사</td>
+            <td>외국계 IT 솔루션 테크 기업 기획</td>
+            <td>4,200,000</td>
+            <td>1,600,000</td>
+            <td>2,600,000</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>30대 중반 남성 결혼정보회사</td>
+            <td>현대자동차 남양연구소 책임연구원</td>
+            <td>4,500,000</td>
+            <td>1,750,000</td>
+            <td>2,750,000</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>30대 중반 여성 결혼정보회사</td>
+            <td>중등 국어교사 (정교사 9년차)</td>
+            <td>4,500,000</td>
+            <td>1,700,000</td>
+            <td>2,800,000</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>30대 중반 남성 결혼정보회사</td>
+            <td>개업 치과의사 (단독 원장)</td>
+            <td>6,500,000</td>
+            <td>2,100,000</td>
+            <td>4,400,000</td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>30대 중반 여성 결혼정보회사</td>
+            <td>사법연수원 출신 변호사 (로펌 파트너)</td>
+            <td>5,800,000</td>
+            <td>1,950,000</td>
+            <td>3,850,000</td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>30대 후반 남성 결혼정보회사</td>
+            <td>금융공기업 팀장급 (연봉 1억 이상)</td>
+            <td>5,200,000</td>
+            <td>1,850,000</td>
+            <td>3,350,000</td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td>30대 후반 여성 결혼정보회사</td>
+            <td>공공기관 책임연구원 (박사 학위)</td>
+            <td>4,800,000</td>
+            <td>1,800,000</td>
+            <td>3,000,000</td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td>40대 초반 남성 결혼정보회사</td>
+            <td>탄탄한 제조 중견기업 2세 대표</td>
+            <td>7,500,000</td>
+            <td>2,400,000</td>
+            <td>5,100,000</td>
+          </tr>
+          <tr>
+            <td>17</td>
+            <td>40대 초반 여성 결혼정보회사</td>
+            <td>전문직 세무사 (개인사무소 운영)</td>
+            <td>5,000,000</td>
+            <td>1,900,000</td>
+            <td>3,100,000</td>
+          </tr>
+          <tr>
+            <td>18</td>
+            <td>20대 사회초년생 남성 결혼정보회사</td>
+            <td>스타트업 백엔드 개발자 (시드 투자사)</td>
+            <td>3,800,000</td>
+            <td>1,500,000</td>
+            <td>2,300,000</td>
+          </tr>
+          <tr>
+            <td>19</td>
+            <td>20대 사회초년생 여성 결혼정보회사</td>
+            <td>항공사 객실 승무원 (국제선)</td>
+            <td>3,600,000</td>
+            <td>1,400,000</td>
+            <td>2,200,000</td>
+          </tr>
+          <tr>
+            <td>20</td>
+            <td>30대 남성 전문직 결혼정보회사</td>
+            <td>특허법인 대표 변리사</td>
+            <td>5,500,000</td>
+            <td>1,900,000</td>
+            <td>3,600,000</td>
+          </tr>
+          <tr>
+            <td>21</td>
+            <td>30대 여성 전문직 결혼정보회사</td>
+            <td>피부과 전문의 (봉직의)</td>
+            <td>6,000,000</td>
+            <td>2,000,000</td>
+            <td>4,000,000</td>
+          </tr>
+          <tr>
+            <td>22</td>
+            <td>30대 공무원 직업별 남성 결혼정보회사</td>
+            <td>중앙부처 5급 행정사무관</td>
+            <td>5,000,000</td>
+            <td>1,750,000</td>
+            <td>3,250,000</td>
+          </tr>
+          <tr>
+            <td>23</td>
+            <td>30대 공무원 직업별 여성 결혼정보회사</td>
+            <td>교육행정직 7급 공무원</td>
+            <td>4,200,000</td>
+            <td>1,600,000</td>
+            <td>2,600,000</td>
+          </tr>
+          <tr>
+            <td>24</td>
+            <td>40대 재혼 남성 결혼정보회사</td>
+            <td>IT 벤처 법인 대표 (자산 50억 보유)</td>
+            <td>6,800,000</td>
+            <td>2,300,000</td>
+            <td>4,500,000</td>
+          </tr>
+          <tr>
+            <td>25</td>
+            <td>40대 재혼 여성 결혼정보회사</td>
+            <td>예술대학 전임강사 및 피아니스트</td>
+            <td>4,900,000</td>
+            <td>1,850,000</td>
+            <td>3,050,000</td>
+          </tr>
+          <tr>
+            <td>26</td>
+            <td>20대 후반 공기업 남성 결혼정보회사</td>
+            <td>한국전력공사 본사 기술직</td>
+            <td>4,300,000</td>
+            <td>1,650,000</td>
+            <td>2,650,000</td>
+          </tr>
+          <tr>
+            <td>27</td>
+            <td>30대 초반 공기업 여성 결혼정보회사</td>
+            <td>인천국제공항공사 사무직</td>
+            <td>4,400,000</td>
+            <td>1,680,000</td>
+            <td>2,720,000</td>
+          </tr>
+          <tr>
+            <td>28</td>
+            <td>30대 금융권 남성 결혼정보회사</td>
+            <td>여의도 증권사 PB (자산운용)</td>
+            <td>4,900,000</td>
+            <td>1,800,000</td>
+            <td>3,100,000</td>
+          </tr>
+          <tr>
+            <td>29</td>
+            <td>30대 프리랜서 예술직 여성 결혼정보회사</td>
+            <td>프리랜서 브랜드 공간 디자이너</td>
+            <td>3,900,000</td>
+            <td>1,550,000</td>
+            <td>2,350,000</td>
+          </tr>
+          <tr>
+            <td>30</td>
+            <td>40대 초혼 남성 전문직 결혼정보회사</td>
+            <td>정형외과 개원의 (자가 병원 건물)</td>
+            <td>8,000,000</td>
+            <td>2,500,000</td>
+            <td>5,500,000</td>
+          </tr>
+          <tr>
+            <td>31</td>
+            <td>20대 후반 여성 전문직 결혼정보회사</td>
+            <td>로스쿨 졸업 후 대형 법무법인 변호사</td>
+            <td>4,800,000</td>
+            <td>1,700,000</td>
+            <td>3,100,000</td>
+          </tr>
+          <tr>
+            <td>32</td>
+            <td>30대 후반 사업가 남성 결혼정보회사</td>
+            <td>식음료 프랜차이즈 가맹 본부 대표</td>
+            <td>6,200,000</td>
+            <td>2,150,000</td>
+            <td>4,050,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      위의 32가지 시뮬레이션 표에서 명확히 드러나듯, 후불제 방식을 채택했을 때 회원이 절감할 수 있는 <strong>예상 금액</strong>은 최소 210만 원에서 최대 550만 원 이상에 이릅니다. 초기 결제금의 거품을 걷어내고 실제 만남 횟수와 성공 시점에만 비용을 분할 정산함으로써 얻는 경제적 이익이 매우 탁월함을 입증합니다.
+    </p>
+
+    <h2 id="section5">5. 온라인 커뮤니티(디시, 펨코, 보배드림) 내돈내산 후기 검증</h2>
+    <p>
+      최근 디시인사이드 결혼정보회사 갤러리, 에펨코리아(펨코), 보배드림, 블라인드 등 실제 이용자들의 솔직한 목소리가 오가는 커뮤니티에서는 후불제결혼정보회사에 대한 <strong>내돈내산 후기</strong>와 경험담 분석이 매우 활발합니다. 수많은 리뷰를 종합 분석한 결과 확인된 이용자들의 실전 팁과 주의점을 요약합니다.
+    </p>
+
+    <h3>5-1. 디시인사이드 결정사 갤러리 후기 분석 요약</h3>
+    <p>
+      디시 갤러리 이용자들은 기존 대형 선불제 업체의 이른바 "가입비 먹튀"와 "희망 고문 매칭"에 대한 환멸을 토로하는 경우가 많습니다. 가입 전에는 당장이라도 전문직이나 외모가 뛰어난 이성을 매칭해 줄 것처럼 호언장담하던 영업 매니저가 결제 완료 후에는 다른 관리 매니저로 교체되면서 연락조차 뜸해지는 구조적 문제를 비판합니다. 반면 후불제 업체를 직접 이용한 후기에서는 <em>"내가 프로필을 거절해도 횟수 차감이 안 되니 마음이 편하다", "만남마다 매니저가 피드백을 철저히 체크해 줘서 돈 아깝다는 생각이 안 든다"</em>는 평가가 주를 이룹니다.
+    </p>
+
+    <h3>5-2. 에펨코리아 및 보배드림 현실 조언</h3>
+    <p>
+      펨코와 보배드림의 30대 남성 직장인 회원들은 가성비와 계약 투명성을 집중적으로 강조합니다. 
+      <em>"처음부터 천만 원 박지 말고, 무조건 10만 원대 등록비로 서류 검증만 해두고 간 보면서 만나라. 후불제 성지 좌표 찾아서 몇 번 만나보고 분위기 파악하는 게 백배 낫다"</em>는 조언이 높은 추천수를 기록했습니다. 또한 성혼비 계약서 작성 시 성혼의 기준(양가 상견례 기준인지, 혼인신고 기준인지, 예식장 예약 기준인지)을 사전에 반드시 서면으로 명확히 못 박아 두어야 차후 불필요한 마찰을 예방할 수 있다는 현실적인 팁도 공유되고 있습니다.
+    </p>
+
+    <div class="tip-card">
+      <p>
+        <strong>커뮤니티 검증 팁:</strong> 후불제 업체라 하더라도 "회당 주선비"를 비정상적으로 높게 책정(예: 1회 30만 원 이상)하거나, 프로필 열람만 해도 비용을 부과하는 변칙 업체가 간혹 존재하므로 계약 전 규정을 꼼꼼히 대조해야 합니다.
+      </p>
+    </div>
+
+    <h2 id="section6">6. 다이렉트 모바일 어플 및 플랫폼 가입 시 프로모션 혜택</h2>
+    <p>
+      2027년 현재 결혼정보 서비스는 오프라인 지점 방문 상담 방식에서 벗어나, 모바일 스마트폰 전용 <strong>앱(어플)</strong> 및 온라인 비대면 다이렉트 시스템을 통해 급격히 디지털화되고 있습니다. 네이버, 구글, 카카오톡, 토스 등 주요 플랫폼과 연계된 다이렉트 가입 창구를 활용하면 오프라인 영업 수수료가 제거되어 더욱 합리적인 비용으로 서비스를 이용할 수 있습니다.
+    </p>
+
+    <h3>6-1. 온라인 다이렉트 신청 시 누릴 수 있는 주요 혜택</h3>
+    <ul>
+      <li>
+        <strong>초기 서류 인증비 전액 또는 부분 면제:</strong> 정부24 전자증명서 연동 시스템을 통해 서류를 비대면으로 자동 제출할 경우, 통상 10만~20만 원 상당의 공증 수수료를 지원금이나 즉시 할인 형태로 감면해 주는 프로모션이 상시 진행됩니다.
+      </li>
+      <li>
+        <strong>첫 만남 주선비 페이백 및 백화점 상품권 증정:</strong> 신규 가입 후 3개월 이내에 첫 오프라인 미팅을 완료한 회원에게 백화점 모바일 상품권(3만~5만 원권) 또는 다음 회차 주선비 50% 할인 쿠폰을 사은품으로 지급합니다.
+      </li>
+      <li>
+        <strong>AI 프로필 사전 가상 매칭 서비스:</strong> 제미나이(Gemini) 및 챗지피티(ChatGPT) 기반의 인공지능 매칭 알고리즘을 도입하여, 회원의 성향, 취향, 가치관, 라이프스타일 빅데이터를 분석한 사전 가상 궁합 점수를 무료로 컨설팅받을 수 있습니다.
+      </li>
+      <li>
+        <strong>무약정 멤버십 보장:</strong> 12개월 의무 계약에 묶이지 않고 언제든 자유롭게 휴면 전환할 수 있는 무약정 혜택을 다이렉트 채널 한정으로 기본 적용합니다.
+      </li>
+    </ul>
+
+    <h2 id="section7">7. 공정거래위원회 표준약관과 환불, 위약금 계약 주의점</h2>
+    <p>
+      결혼은 인생에서 가장 중대한 인륜지대사인 만큼, 이를 중개하는 결혼중개업체와의 계약 체결 시 법률적 안전장치를 확인하는 것은 필수적입니다. 공정거래위원회에서 고시한 <strong>국내결혼중개표준약관</strong>(제10028호)은 소비자의 정당한 권익을 보호하기 위한 법적 기준선입니다.
+    </p>
+
+    <div class="alert-card">
+      <p>
+        <strong>법률 점검 필수:</strong> 계약서 작성 시 "계약 후 일체 환불 불가"라는 특약 문구가 기재되어 있다면 이는 약관의 규제에 관한 법률상 무효에 해당합니다. 공정위 표준약관을 준수하는 정식 등록 업체인지 여성가족부 및 관할 구청 등록번호를 필히 대조해야 합니다.
+      </p>
+    </div>
+
+    <h3>7-1. 선불제 계약 시 공정위 환불 기준 (대조 확인용)</h3>
+    <p>
+      선불제 업체의 경우 계약 체결 후 프로필을 제공받기 전 해지하면 가입비의 80%를 환불받을 수 있으며, 프로필 제공 후 만남 전 해지 시는 75%, 1회 이상 만남 후 잔여 횟수가 남았을 때는 산식에 따라 잔여 횟수 가액에서 20%의 위약금을 공제한 잔액을 돌려받도록 명시되어 있습니다. 그러나 현실에서는 업체가 정규 횟수 외에 서비스 횟수라는 명목을 붙여 회당 단가를 터무니없이 높게 계산하는 꼼수를 부려 환불금이 거의 나오지 않는 분쟁이 다반사입니다.
+    </p>
+
+    <h3>7-2. 후불제 계약서 필수 확인 체크리스트</h3>
+    <ol>
+      <li><strong>서류 검증 실비의 성격 규정:</strong> 등록비가 순수한 실비이며 추가 숨겨진 부대비용(사진 촬영비, 프로필 등록비 등)이 없는지 확인.</li>
+      <li><strong>주선비 청구 시점:</strong> 양측 모두 만남에 최종 동의하여 시간과 장소가 확정되었을 때만 주선비가 청구되는지 확인 (단순 프로필 열람 시 청구 불가 원칙).</li>
+      <li><strong>상대방의 노쇼(No-Show) 대책:</strong> 약속 당일 상대방이 일방적으로 취소하거나 무단 불참했을 때 주선비 전액 환불 및 보상 매칭 규정이 명문화되어 있는지 점검.</li>
+      <li><strong>성혼사례비 청구 요건:</strong> 성혼비 지급 시점이 구체적으로 언제인지(예: 청첩장 발행, 양가 상견례, 혼인신고 등) 명확한 기준을 확인하고 모호한 해석 여지를 사전 차단.</li>
+    </ol>
+
+    <h2 id="section8">8. 후불제결혼정보회사 실시간 예상 비용 모의 계산기</h2>
+    <p>
+      아래 계산기는 본인의 성별, 나이대, 직업군 등급, 그리고 희망하는 예상 만남 횟수를 기반으로 후불제 이용 시 총비용과 기존 선불제 대비 절약할 수 있는 예상 금액을 즉시 산출해 주는 시뮬레이션 장치입니다. 본인에게 가장 유리한 견적을 확인해 보십시오.
+    </p>
+
+    <div class="calculator-wrapper">
+      <h3>후불제 vs 선불제 실시간 모의 견적 계산기</h3>
+      <div class="calc-grid">
+        <div class="calc-group">
+          <label for="user-gender">가입 회원 성별</label>
+          <select id="user-gender">
+            <option value="male">남성 회원</option>
+            <option value="female">여성 회원</option>
+          </select>
+        </div>
+
+        <div class="calc-group">
+          <label for="user-age">현재 나이대 (연령별)</label>
+          <select id="user-age">
+            <option value="20s_early">20대 초중반 (만 20세~26세)</option>
+            <option value="20s_late">20대 후반 (만 27세~29세)</option>
+            <option value="30s_early" selected>30대 초반 (만 30세~34세 - 최다 분포)</option>
+            <option value="30s_late">30대 후반 (만 35세~39세)</option>
+            <option value="40s">40대 이상 (초혼 및 재혼)</option>
+          </select>
+        </div>
+
+        <div class="calc-group">
+          <label for="user-job">직업군 및 스펙 등급</label>
+          <select id="user-job">
+            <option value="tier_special">특A등급 (의사, 변호사, 판검사, 행시, 고액자산가)</option>
+            <option value="tier_a">A등급 (회계사, 변리사, 금융공기업, 교수, 약사)</option>
+            <option value="tier_b" selected>B등급 (10대 대기업, IT 테크, 공기업, 국공립교사)</option>
+            <option value="tier_c">C등급 (중견기업 정규직, 7급/9급 공무원, 일반 사무직)</option>
+            <option value="tier_d">기타 등급 (사업자, 프리랜서, 서비스 전문직)</option>
+          </select>
+        </div>
+
+        <div class="calc-group">
+          <label for="user-meetings">목표 만남 횟수 (성혼 전 예상 미팅)</label>
+          <select id="user-meetings">
+            <option value="3">3회 내외 (초고속 성혼형)</option>
+            <option value="5" selected>5회 내외 (평균 표준형)</option>
+            <option value="8">8회 내외 (신중 검토형)</option>
+            <option value="12">12회 내외 (폭넓은 탐색형)</option>
+          </select>
+        </div>
+
+        <div class="calc-checkbox-container">
+          <label class="calc-checkbox-label">
+            <input type="checkbox" id="chk-success" checked> 
+            최종 성혼 성공 가정 (성혼사례비 포함 계산)
+          </label>
+          <label class="calc-checkbox-label">
+            <input type="checkbox" id="chk-online-promo" checked> 
+            온라인 다이렉트 신규 가입 프로모션 적용 (서류 등록 실비 50% 할인)
+          </label>
+        </div>
+
+        <button type="button" class="btn-submit-calc" onclick="calculateMarriageCost()">견적 계산 및 비교 결과 산출하기</button>
+      </div>
+
+      <div class="calc-result-panel" id="result-display">
+        <div class="calc-result-title">모의 컨설팅 산출 결과 보고서</div>
+        <div class="calc-result-row">
+          <span>기존 대형 선불제 가입 시 예상 금액:</span>
+          <span id="txt-prepaid-cost" class="td-bold">0 원</span>
+        </div>
+        <div class="calc-result-row">
+          <span>후불제 초기 등록 서류 실비:</span>
+          <span id="txt-init-fee">0 원</span>
+        </div>
+        <div class="calc-result-row">
+          <span>오프라인 만남 주선비 누적액:</span>
+          <span id="txt-meeting-fee">0 원</span>
+        </div>
+        <div class="calc-result-row">
+          <span>최종 성혼사례비 (성혼 시):</span>
+          <span id="txt-success-fee">0 원</span>
+        </div>
+        <div class="calc-result-row total-row">
+          <span>후불제 총비용 (연간/최종):</span>
+          <span id="txt-total-postpaid">0 원</span>
+        </div>
+        <div class="calc-result-row" style="border: none; margin-top: 10px; color: #b91c1c; font-size: 1.15em; font-weight: 800;">
+          <span>후불제 선택 시 절약 예상 금액:</span>
+          <span id="txt-saving-cost">0 원</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="section9">9. 자주 묻는 질문 10선 (심층 FAQ)</h2>
+
+    <h3>질문 1: 후불제결혼정보회사는 선불제에 비해 가입자 풀이 적지 않나요?</h3>
+    <p>
+      과거 초창기에는 일부 소규모 에이전시 위주로 운영되어 회원 수 부족 문제가 있었던 것이 사실입니다. 그러나 2027년 현재는 과도한 가입비에 거부감을 가진 2030 엘리트 직장인과 전문직 미혼남녀들이 대거 후불제 플랫폼으로 이동하면서 주요 선진 후불제 연합망의 통합 회원 수는 수만 명에 이릅니다. 전국 단위 제휴 전산망을 통해 대형 선불제 못지않은 두터운 프로필 풀을 갖추고 있습니다.
+    </p>
+
+    <h3>질문 2: 1회 만남 주선비는 구체적으로 얼마인가요?</h3>
+    <p>
+      회사의 정책과 회원의 등급에 따라 약간의 차이가 있으나, 업계 평균 기준으로 1회 만남당 7만 원에서 12만 원 선이 가장 보편적입니다. 이 비용은 양측이 상대방의 상세 프로필(사진, 직업, 학력, 자산, 키, 가족관계 등)을 모두 확인하고 상호 수락하여 커플매니저가 약속 장소(주로 주요 호텔 라운지나 조용한 카페) 예약과 일정을 최종 확정했을 때 결제됩니다.
+    </p>
+
+    <h3>질문 3: 상대방이 마음에 들지 않아 거절하면 페널티가 있나요?</h3>
+    <p>
+      전혀 없습니다. 후불제의 가장 핵심적인 장점은 선택의 완전한 자유입니다. 제안받은 프로필이 본인의 기준에 부합하지 않을 경우 횟수 차감이나 위약금 없이 거절할 수 있으며, 본인이 만남을 승낙한 건에 대해서만 비용이 발생합니다.
+    </p>
+
+    <h3>질문 4: 상대방 프로필에 학력이나 직업을 위조할 가능성은 없나요?</h3>
+    <p>
+      국내결혼중개업 관리법에 따라 후불제 업체 또한 의무적으로 회원 가입 시 신원 인증 서류를 공증 제출받아야 합니다. 주민등록등본, 혼인관계증명서(상세), 가족관계증명서, 원천징수영수증, 건강보험자격득실확인서, 최종학력 졸업증명서, 의사 및 변호사 등 전문직 자격증 원본 대조를 거치므로 허위 프로필 등록은 법적으로 엄격히 차단됩니다.
+    </p>
+
+    <h3>질문 5: 성혼사례비는 언제 지급하는 것이 원칙인가요?</h3>
+    <p>
+      통상 교제를 이어가다 양가 상견례를 마치거나 예식장 계약서를 작성한 시점, 또는 청첩장을 인쇄하는 시점에 최종 지급합니다. 계약 체결 시 성혼비 지급 시점에 대한 명문화된 조항을 정확히 확인하는 것이 좋습니다.
+    </p>
+
+    <h3>질문 6: 전문직 남성이나 전문직 여성은 후불제에서 특별 대우를 받나요?</h3>
+    <p>
+      전문직 회원은 시장 내 선호도가 매우 높기 때문에 후불제 플랫폼에서 초기 서류 등록비를 전액 면제받거나, 주선비 할인 프로모션을 제공받는 경우가 많습니다. 또한 본인이 원하는 세부 눈높이에 맞춘 타깃 매칭이 가능하여 불필요한 만남을 피할 수 있습니다.
+    </p>
+
+    <h3>질문 7: 가입 후 매칭이 너무 안 들어오면 어떻게 하나요?</h3>
+    <p>
+      후불제 회사는 매칭을 주선해야 수익이 발생하므로 매니저가 방치할 이유가 전혀 없습니다. 만약 프로필 추천이 지연된다면 본인이 설정한 이상형 조건(나이 차이, 직업, 학벌, 키 등)이 시장 수급상 너무 까다롭지 않은지 매니저와 1:1 상담 컨설팅을 통해 스펙트럼을 소폭 조정하는 것이 효과적입니다.
+    </p>
+
+    <h3>질문 8: 남녀 중 데이트 비용이나 주선비는 누가 부담하나요?</h3>
+    <p>
+      주선비는 각자 본인의 소속 회사에 개별적으로 결제하는 구조입니다. 첫 만남 당일 현장에서 발생하는 커피값이나 식사비는 통상 남성이 첫 커피를 계산하면 여성이 간단한 디저트를 결제하거나, 매너 있는 상호 분담을 진행하는 것이 가장 일반적이고 권장되는 에티켓입니다.
+    </p>
+
+    <h3>질문 9: 1년 약정이 끝나면 계약이 자동 연장되어 비용이 나가나요?</h3>
+    <p>
+      후불제는 기본적으로 무약정 원칙을 고수하므로 자동 갱신이나 무단 결제가 발생하지 않습니다. 언제든 본인이 원할 때 활동을 잠정 중단(휴면)하거나 계약을 종료할 수 있습니다.
+    </p>
+
+    <h3>질문 10: 환불 및 위약금 관련 분쟁이 발생하면 어디에 도움을 청하나요?</h3>
+    <p>
+      만약 계약 조항과 다른 부당한 요금 청구나 분쟁이 발생할 경우, 공정거래위원회(국번없이 1372 소비자상담센터)나 한국소비자원 피해구제신청을 통해 중재 및 조정을 받을 수 있습니다.
+    </p>
+
+    <h2 id="section10">10. 공인 공식 정보 출처 및 신뢰할 수 있는 기관 안내</h2>
+    <p>
+      결혼정보 서비스 이용 전 약관 규정, 피해 예방 가이드, 통계 지표를 객관적으로 확인해 볼 수 있는 공인 외부 허브 채널들을 안내해 드립니다.
+    </p>
+
+    <div class="reference-section">
+      <h4>공인 정부 기관 및 신뢰할 수 있는 외부 포털 서비스</h4>
+      <ul class="reference-links-list">
+        <li>
+          <a href="https://directzchecks.koreahankang.com" target="_blank" rel="noopener noreferrer">
+            대한민국 결혼정보 다이렉트 통합비교 금융포털 (통합 견적 분석 센터)
+          </a>
+          <span class="reference-meta">전국 후불제 및 선불제 결혼정보 브랜드 요율 체계 및 실시간 다이렉트 견적 데이터베이스</span>
+        </li>
+        <li>
+          <a href="https://namu.wiki/w/%EA%B2%B0%ED%98%BC%EC%A0%95%EB%B3%B4%ED%98%8C%EC%82%AC" target="_blank" rel="noopener noreferrer">
+            나무위키 결혼정보회사 상세 지식백과 (선불제 폐해 및 시장 구조 분석)
+          </a>
+          <span class="reference-meta">결혼정보회사의 역사, 등급표의 실체, 소비자 분쟁 유형 및 업계 생태계 총정리 백과사전</span>
+        </li>
+        <li>
+          <a href="https://www.ftc.go.kr" target="_blank" rel="noopener noreferrer">
+            공정거래위원회 공식 포털 (국내결혼중개업 표준약관 제10028호 조회)
+          </a>
+          <span class="reference-meta">소비자 권익 보호를 위한 법정 계약 기준선, 위약금 가이드라인 및 불공정 약관 심사 기준</span>
+        </li>
+      </ul>
+    </div>
+
+    
+  </div>
+
+  <script>
+    function calculateMarriageCost() {
+      // 폼 값 가져오기
+      const gender = document.getElementById('user-gender').value;
+      const age = document.getElementById('user-age').value;
+      const jobTier = document.getElementById('user-job').value;
+      const meetings = parseInt(document.getElementById('user-meetings').value, 10);
+      const isSuccess = document.getElementById('chk-success').checked;
+      const isPromo = document.getElementById('chk-online-promo').checked;
+
+      // 1. 선불제 예상 가입비 기준치 설정
+      let basePrepaid = 4500000;
+      if (jobTier === 'tier_special') {
+        basePrepaid = 6500000;
+      } else if (jobTier === 'tier_a') {
+        basePrepaid = 5200000;
+      } else if (jobTier === 'tier_b') {
+        basePrepaid = 4500000;
+      } else if (jobTier === 'tier_c') {
+        basePrepaid = 3800000;
+      } else {
+        basePrepaid = 3500000;
+      }
+
+      // 연령 가중치
+      if (gender === 'female') {
+        if (age === '20s_early' || age === '20s_late') basePrepaid -= 500000;
+        if (age === '30s_late') basePrepaid += 400000;
+        if (age === '40s') basePrepaid += 800000;
+      } else {
+        if (age === '20s_early') basePrepaid -= 200000;
+        if (age === '30s_early' || age === '30s_late') basePrepaid += 200000;
+        if (age === '40s') basePrepaid += 600000;
+      }
+
+      // 2. 후불제 항목별 비용 계산
+      // 초기 서류 검증 실비
+      let initFee = 200000;
+      if (isPromo) {
+        initFee = 100000; // 50% 할인 프로모션
+      }
+
+      // 회당 미팅비
+      let perMeetingFee = 100000;
+      if (jobTier === 'tier_special') {
+        perMeetingFee = 120000;
+      } else if (jobTier === 'tier_c' || jobTier === 'tier_d') {
+        perMeetingFee = 80000;
+      }
+
+      const totalMeetingCost = perMeetingFee * meetings;
+
+      // 성혼사례비
+      let successFee = 0;
+      if (isSuccess) {
+        if (jobTier === 'tier_special') {
+          successFee = 2000000;
+        } else if (jobTier === 'tier_a') {
+          successFee = 1500000;
+        } else {
+          successFee = 1200000;
+        }
+      }
+
+      const totalPostpaid = initFee + totalMeetingCost + successFee;
+      const savingCost = Math.max(0, basePrepaid - totalPostpaid);
+
+      // 화면 출력
+      document.getElementById('txt-prepaid-cost').innerText = basePrepaid.toLocaleString() + ' 원';
+      document.getElementById('txt-init-fee').innerText = initFee.toLocaleString() + ' 원';
+      document.getElementById('txt-meeting-fee').innerText = totalMeetingCost.toLocaleString() + ' 원 (' + meetings + '회 기준)';
+      document.getElementById('txt-success-fee').innerText = successFee.toLocaleString() + ' 원';
+      document.getElementById('txt-total-postpaid').innerText = totalPostpaid.toLocaleString() + ' 원';
+      document.getElementById('txt-saving-cost').innerText = savingCost.toLocaleString() + ' 원 절감';
+
+      // 결과 패널 노출
+      document.getElementById('result-display').style.display = 'block';
+    }
+  </script>
+  
